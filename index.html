@@ -1,0 +1,303 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP TESTE</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<!-- MENU LATERAL -->
+
+<nav id="menu">
+
+    <div class="logo">
+
+        <h2>Menu</h2>
+
+    </div>
+
+    <ul>
+
+        <li onclick="abrirPagina('inicio')">
+            <i class="fa-solid fa-house"></i>
+            Início
+        </li>
+
+        <li onclick="abrirPagina('sorteio')">
+            <i class="fa-solid fa-dice"></i>
+            Sorteio da Semana
+        </li>
+
+        <li onclick="abrirPagina('quiz')">
+            <i class="fa-solid fa-question-circle"></i>
+            Quiz da Semana
+        </li>
+
+        <li onclick="abrirPagina('lembretes')">
+            <i class="fa-solid fa-bell"></i>
+            Lembretes
+        </li>
+
+        <li onclick="abrirPagina('cronograma')">
+            <i class="fa-solid fa-calendar"></i>
+            Cronograma
+        </li>
+
+        <li onclick="abrirPagina('estatisticas')">
+            <i class="fa-solid fa-chart-column"></i>
+            Estatísticas
+        </li>
+
+        <li onclick="abrirPagina('configuracoes')">
+            <i class="fa-solid fa-gear"></i>
+            Configurações
+        </li>
+
+    </ul>
+
+</nav>
+
+<!-- CABEÇALHO -->
+
+<header>
+
+    <button id="btnMenu">
+
+        ☰
+
+    </button>
+
+    <h1>APP TESTE</h1>
+
+</header>
+
+<!-- CONTEÚDO -->
+
+<main>
+
+<!-- ======================== -->
+<!-- INÍCIO -->
+<!-- ======================== -->
+
+<section id="inicio" class="pagina">
+
+    <h2>📋 Painel de Estudos</h2>
+
+    <!-- Lembretes Rápidos -->
+    <div class="card-info">
+        <i class="fa-solid fa-bell"></i>
+        <h3>🔔 Lembretes</h3>
+        <ul id="lista-lembretes-inicio">
+            <li>📖 Revisar anotações do dia</li>
+            <li>📝 Fazer exercícios do tema da semana</li>
+            <li>⏰ Estudar pelo menos 1 hora</li>
+        </ul>
+    </div>
+
+    <!-- Cronograma -->
+    <div class="card-info">
+        <i class="fa-solid fa-calendar-days"></i>
+        <h3>📅 Cronograma Semanal</h3>
+        <ul id="lista-cronograma-inicio">
+            <li>Segunda: Matemática</li>
+            <li>Terça: Português</li>
+            <li>Quarta: Biologia</li>
+            <li>Quinta: Química</li>
+            <li>Sexta: Física</li>
+            <li>Sábado: Revisão</li>
+            <li>Domingo: Descanso + Quiz</li>
+        </ul>
+    </div>
+
+    <!-- Dias Restantes -->
+    <div class="card-info" id="card-contagem">
+        <i class="fa-solid fa-hourglass-half"></i>
+        <h3>⏳ Faltam para o sorteio acabar</h3>
+        <p id="dias-restantes">Carregando...</p>
+        <small style="color:#94a3b8;">O sorteio reinicia todo domingo</small>
+    </div>
+
+    <!-- Resumo -->
+    <h2 style="margin-top:20px;">📝 Resumo dos Estudos</h2>
+
+    <p>
+    Escreva abaixo um resumo do que estudou.
+    Tudo será salvo automaticamente.
+    </p>
+
+    <textarea
+    id="resumo"
+    placeholder="Digite seu resumo aqui...">
+    </textarea>
+
+    <button onclick="salvarResumo()">
+    Salvar Resumo
+    </button>
+
+</section>
+
+<!-- ======================== -->
+<!-- SORTEIO -->
+<!-- ======================== -->
+
+<section
+id="sorteio"
+class="pagina escondido">
+
+<h2>Sorteio da Semana</h2>
+
+<p>
+O aplicativo escolherá uma matéria e um tema para você estudar.
+</p>
+
+<h3 id="materiaEscolhida">
+Nenhuma matéria sorteada
+</h3>
+
+<p id="temaEscolhido">
+Nenhum tema sorteado
+</p>
+
+<button onclick="sortearTema()">
+🎲 Sortear Tema
+</button>
+
+<p style="margin-top:15px;font-size:14px;color:#94a3b8;">
+O sorteio dura até domingo. Depois um novo tema será sorteado!
+</p>
+
+</section>
+
+<!-- ======================== -->
+<!-- QUIZ DA SEMANA (NOVA ABA) -->
+<!-- ======================== -->
+
+<section
+id="quiz"
+class="pagina escondido">
+
+<h2>🎯 Quiz da Semana</h2>
+
+<div id="quiz-info">
+    <p><strong>📚 Matéria:</strong> <span id="quiz-materia">Nenhuma</span></p>
+    <p><strong>📖 Tema:</strong> <span id="quiz-tema">Nenhum</span></p>
+</div>
+
+<div id="pergunta-area" class="escondido">
+    <h3 id="pergunta-texto"></h3>
+    <div id="alternativas"></div>
+    <button id="btn-responder" onclick="verificarResposta()">Responder</button>
+    <p id="resultado-quiz"></p>
+</div>
+
+<button id="btn-iniciar-quiz" onclick="iniciarQuiz()">
+Iniciar Quiz
+</button>
+
+<p id="quiz-aviso" style="margin-top:15px;text-align:center;color:#facc15;"></p>
+
+</section>
+
+<!-- ======================== -->
+<!-- LEMBRETES -->
+<!-- ======================== -->
+
+<section
+id="lembretes"
+class="pagina escondido">
+
+<h2>Lembretes</h2>
+
+<input
+type="text"
+id="tituloLembrete"
+placeholder="Título">
+
+<input
+type="date"
+id="dataLembrete">
+
+<input
+type="time"
+id="horaLembrete">
+
+<button
+onclick="adicionarLembrete()">
+Adicionar
+</button>
+
+<div id="listaLembretes">
+</div>
+
+</section>
+
+<!-- ======================== -->
+<!-- CRONOGRAMA -->
+<!-- ======================== -->
+
+<section
+id="cronograma"
+class="pagina escondido">
+
+<h2>Cronograma</h2>
+
+<p>
+Em breve será possível organizar seus estudos por dia da semana.
+</p>
+
+</section>
+
+<!-- ======================== -->
+<!-- ESTATÍSTICAS -->
+<!-- ======================== -->
+
+<section
+id="estatisticas"
+class="pagina escondido">
+
+<h2>Estatísticas</h2>
+
+<p>
+Aqui aparecerão seus dados de estudo.
+</p>
+
+</section>
+
+<!-- ======================== -->
+<!-- CONFIGURAÇÕES -->
+<!-- ======================== -->
+
+<section
+id="configuracoes"
+class="pagina escondido">
+
+<h2>Configurações</h2>
+
+<p>
+Tema, backup, exportação e outras opções.
+</p>
+
+<button onclick="limparAplicativo()" style="background:#ef4444;margin-top:15px;">
+🗑️ Limpar todos os dados
+</button>
+
+</section>
+
+</main>
+
+<!-- Scripts -->
+
+<script src="materias.js"></script>
+<script src="storage.js"></script>
+<script src="notificacoes.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
